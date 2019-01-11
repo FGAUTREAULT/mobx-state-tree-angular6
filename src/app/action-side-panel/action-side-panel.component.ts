@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-action-side-panel',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActionSidePanelComponent implements OnInit {
 
+  @Input() updated: Boolean;
+  @Input() canUndo: boolean;
+  @Input() canRedo: boolean;
+  @Output() action: EventEmitter<string> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onAction(_action: string) {
+    this.action.emit(_action);
   }
 
 }

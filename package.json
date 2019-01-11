@@ -26,6 +26,8 @@
     "core-js": "^2.5.4",
     "mobx": "^5.8.0",
     "mobx-state-tree": "^3.10.0",
+    "mobx-wiretap": "^0.13.1",
+    "mst-middlewares": "^3.10.0",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },
@@ -45,6 +47,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "mobx-wiretap-remote": "^0.3.0",
     "protractor": "^5.4.2",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",

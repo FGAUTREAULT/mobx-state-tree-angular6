@@ -1,10 +1,20 @@
 @import 'variables';
 
 .app-container {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: $gutter;
+}
+
+.app-container-center {
+  align-items: center;
+  align-content: center;
+}
+
+.app-container-stretch {
+  align-items: stretch;
+  align-content: stretch;
 }
 
 .app-item {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-json-display',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JsonDisplayComponent implements OnInit {
 
+  @Input() updated: Boolean;
+  @Input() data: any;
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

@@ -1,4 +1,7 @@
-<div class="app-container store-container">
-  <app-action-side-panel></app-action-side-panel>
-  <app-json-display></app-json-display>
-</div>
+<app-action-side-panel class="app-container app-container-center action-container"
+  [updated]="updated"
+  [canUndo]="canUndo"
+  [canRedo]="canRedo"
+  (action)="onAction($event)"
+></app-action-side-panel>
+<app-json-display class="app-container-stretch json-container" [data]="data" [updated]="updated"></app-json-display>

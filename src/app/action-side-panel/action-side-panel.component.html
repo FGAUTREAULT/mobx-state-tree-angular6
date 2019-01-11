@@ -1,11 +1,20 @@
-<div class="app-container app-list-column-container">
+<ng-container>
   <div class="app-list-item app-item">
-    <button mat-button type="button">Add</button>
+    <button mat-button type="button" (click)="onAction('refresh')">Refresh</button>
   </div>
   <div class="app-list-item app-item">
-    <button mat-button type="button">Remove</button>
+    <button mat-button type="button" [disabled]="updated == null" (click)="onAction('add')">Add</button>
   </div>
   <div class="app-list-item app-item">
-    <button mat-button type="button">Clear</button>
+    <button mat-button type="button" [disabled]="updated == null" (click)="onAction('remove')">Remove</button>
   </div>
-</div>
+  <div class="app-list-item app-item">
+    <button mat-button type="button" [disabled]="!canUndo" (click)="onAction('undo')">Undo</button>
+  </div>
+  <div class="app-list-item app-item">
+    <button mat-button type="button" [disabled]="!canRedo" (click)="onAction('redo')">Redo</button>
+  </div>
+  <div class="app-list-item app-item">
+    <button mat-button type="button" [disabled]="!updated" (click)="onAction('save')">Save</button>
+  </div>
+</ng-container>

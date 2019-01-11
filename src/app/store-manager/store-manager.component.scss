@@ -1,3 +1,13 @@
-.store-container {
-  flex-direction: row;
+@import '../../style/variables';
+
+.action-container {
+  flex-direction: column;
+  height: 100%;
+}
+
+.json-container {
+  min-height: 100%;
+  width: 100%;
+  border: dashed 0.1em lightgray;
+  padding: $gutter;
 }

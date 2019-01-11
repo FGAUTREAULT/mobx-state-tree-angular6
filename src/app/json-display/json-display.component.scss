@@ -1,3 +1,14 @@
-.board-full-size {
-  background-color: red;
+@import '../../style/variables';
+
+.item-default {
+  font-style: italic;
+  padding: $gutter 0;
+  text-align: center;
+}
+
+.item-unsaved {
+  font-style: italic;
+  color: gray;
+  padding: $gutter 0;
+  text-align: center;
 }

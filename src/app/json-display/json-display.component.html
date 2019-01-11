@@ -1,5 +1,16 @@
-<div class="app-container">
-  <div>
-    json-display works!
+<ng-container [ngSwitch]="updated">
+  <div *ngSwitchCase="true">
+    <div class="item-unsaved">
+      *Beware unsaved values !
+    </div>
+    {{ data | json }}
   </div>
-</div>
+  <div *ngSwitchCase="false">
+    {{ data | json }}
+  </div>
+  <div class="app-container app-container-center" *ngSwitchDefault>
+    <div class="item-default">
+      Please retieve all settings first.
+    </div>
+  </div>
+</ng-container>

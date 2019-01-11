@@ -6,6 +6,7 @@ import { StoreManagerComponent } from './store-manager/store-manager.component';
 import { ActionSidePanelComponent } from './action-side-panel/action-side-panel.component';
 import { JsonDisplayComponent } from './json-display/json-display.component';
 import { SharedModule } from 'src/shared/shared.module';
+import { fakeBackendProvider } from './rest/interceptor/fake-backend.interceptor.mock';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { SharedModule } from 'src/shared/shared.module';
     BrowserModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
