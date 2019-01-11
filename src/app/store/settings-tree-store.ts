@@ -44,7 +44,6 @@ export interface ISettings extends Instance<typeof SettingsModel> { }
 // TODO how to remove synchronized
 export const SettingsStore = types.model({
   settings: types.optional(types.array(SettingsModel), []),
-  // synchronized: types.optional(types.boolean, false),
 })
   .views(self => ({
     get userSettings(): ISettings {
@@ -53,9 +52,6 @@ export const SettingsStore = types.model({
     get all(): ISettings[] {
       return getSnapshot(self).settings;
     },
-    // get isUpdated(): boolean {
-    //   return self.synchronized;
-    // }
   }))
   .actions(self => {
 
@@ -63,7 +59,6 @@ export const SettingsStore = types.model({
     function* refresh(_settings: ISettings[]) {
       self.settings.clear();
       _settings.forEach(setting => self.settings.push(setting));
-      // self.updated = false;
     }
 
     return {
@@ -71,38 +66,37 @@ export const SettingsStore = types.model({
       init : flow(function* init(_settings: ISettings[]) {
         self.settings.clear();
         _settings.forEach(setting => self.settings.push(setting));
-        // self.updated = false;
+        return getSnapshot(self);
       }),
 
       // No undo redo has retieve from server
       // init: (_settings) => undoManager.withoutUndoFlow(refresh)(),
-      refresh(_settings: ISettings[]) {
-        undoManager.startGroup(() => {
-          self.settings.clear();
-          _settings.forEach(setting => self.settings.push(setting));
-          // self.synchronized = true;
-        });
-        undoManager.stopGroup();
-        undoManager.clear();
-      },
+      // refresh(_settings: ISettings[]) {
+      //   undoManager.startGroup(() => {
+      //     self.settings.clear();
+      //     _settings.forEach(setting => self.settings.push(setting));
+      //   });
+      //   undoManager.stopGroup();
+      //   undoManager.clear();
+      // },
       update(_setting: ISettings) {
         self.settings.filter((setting) => setting.id !== _setting.id).push(_setting);
-        // self.synchronized = false;
       },
       create(_setting: ISettings) {
         self.settings.push(_setting);
-        // self.synchronized = false;
       },
       delete(_setting: ISettings) {
         const index = self.settings.findIndex((setting) => setting.id === _setting.id);
         if (index !== -1) {
           self.settings.splice(self.settings.indexOf(_setting), 1);
-          // self.synchronized = false;
         }
       },
-      save() {
-        // self.synchronized = true;
+      discardChanges() {
         undoManager.clear();
+      },
+      save(): ISettingsStore {
+        undoManager.clear();
+        return getSnapshot(self);
       }
     };
 

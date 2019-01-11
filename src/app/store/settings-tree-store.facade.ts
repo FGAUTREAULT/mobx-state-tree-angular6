@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { onAction, onSnapshot } from 'mobx-state-tree';
+import { onAction, onSnapshot, applySnapshot } from 'mobx-state-tree';
 import { SettingsService } from '../rest/settings-crud.service';
 import { SettingsTreeStore, ISettings, ISettingsStore, undoManager } from './settings-tree-store';
 import { BehaviorSubject } from 'rxjs';
@@ -12,6 +12,8 @@ export class SettingsTreeStoreFacade {
   private settingsSnapshot$ = new BehaviorSubject<ISettingsStore>(null);
   // TODO type
   private settingsChanges$ = new BehaviorSubject<any>(null);
+  // TODO type
+  private initialSnapshot;
 
   constructor(
     private settingsService: SettingsService,
@@ -36,7 +38,9 @@ export class SettingsTreeStoreFacade {
 
   refresh() {
     this.settingsService.getAll().then(settings => {
-      this.settingsStore.getStore().init(settings).then(() => {
+      this.settingsStore.getStore().init(settings).then((snapshot: ISettingsStore) => {
+        console.log('init', snapshot);
+        this.initialSnapshot = snapshot;
         undoManager.clear();
       });
       // this.settingsStore.getStore().refresh(settings);
@@ -68,10 +72,16 @@ export class SettingsTreeStoreFacade {
     return undoManager.canRedo;
   }
 
+  // TODO discard by undoManager ?
+  discardChanges() {
+    applySnapshot(this.settingsStore.getStore(), this.initialSnapshot);
+    this.settingsStore.getStore().discardChanges();
+  }
+
   save() {
     const _settings = this.settingsStore.getStore().all;
     this.settingsService.update(_settings).then(() => {
-      this.settingsStore.getStore().save();
+      this.initialSnapshot = this.settingsStore.getStore().save();
     });
   }
 

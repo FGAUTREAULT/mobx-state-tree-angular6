@@ -72,6 +72,9 @@ export class StoreManagerComponent extends SubscriberComponent implements OnInit
       case 'redo':
         this.settingsStoreFacade.redo();
         break;
+      case 'discard':
+        this.settingsStoreFacade.discardChanges();
+        break;
       case 'save':
         this.settingsStoreFacade.save();
         break;
