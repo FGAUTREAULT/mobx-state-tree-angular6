@@ -94,7 +94,8 @@ export const SettingsStore = types.model({
       discardChanges() {
         undoManager.clear();
       },
-      save(): ISettingsStore {
+      // TODO Type return
+      save() {
         undoManager.clear();
         return getSnapshot(self);
       }
